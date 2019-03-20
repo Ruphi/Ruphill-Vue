@@ -1,0 +1,25 @@
+<template>
+  <v-card>
+    <v-list class="pa-1 hidden-md-and-up">
+      <v-list-tile avatar>
+        <v-list-tile-avatar>
+          <v-img src="https://res.cloudinary.com/dcktxc7vt/image/upload/v1552743889/personal-site-for-project/king.jpg"></v-img>
+        </v-list-tile-avatar>
+
+        <v-list-tile-content>
+          <v-list-tile-title>一颗橡皮</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
+  </v-card>
+</template>
+
+<script>
+    export default {
+        name: "SideBarHeader"
+    }
+</script>
+
+<style scoped>
+
+</style>

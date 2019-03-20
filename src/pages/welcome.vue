@@ -3,7 +3,7 @@
     <v-card>
       <v-layout row fill-height>
         <v-flex xs12>
-          <v-img src="/static/imgs/index/personal-bg.jpg" height="100vh">
+          <v-img src="https://res.cloudinary.com/dcktxc7vt/image/upload/v1552567785/personal-site-for-project/personal-bg.jpg" height="100vh">
             <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=453413861&auto=1&height=66"></iframe>
             <div class="card-img-text" style="margin-right: 30px"><h2 class="second"> 前進する</h2></div>
             <div class="card-img-text"><h2 class="first">一颗橡皮</h2></div>
@@ -19,7 +19,7 @@
                   </div>
 
                   <v-card-actions>
-                    <v-btn flat outline color="orange">进入空间</v-btn>
+                    <v-btn flat outline color="orange" @click="toIndex">进入空间</v-btn>
                   </v-card-actions>
                 </div>
               </v-card-title>
@@ -41,6 +41,12 @@
       data(){
         return {
 
+        }
+      },
+      methods: {
+        toIndex(){
+          console.log(this);
+          this.$router.push('/index');
         }
       }
     }

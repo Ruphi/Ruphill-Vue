@@ -1,18 +1,45 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Vuetify from 'vuetify'
+
+
+import Welcome from '@/pages/Welcome'
 import Index from '@/pages/Index'
-import 'vuetify/dist/vuetify.min.css'
+import Admin from '@/pages/Admin'
 
 Vue.use(Router);
-Vue.use(Vuetify);
+
 
 export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Welcome',
+      component: Welcome
+    },{
+      path: '/index',
       name: 'Index',
+      children:[
+        {
+          path: '/',
+          component: resolve => require(['@/components/Index/IndexContent'], resolve)
+        }
+      ],
       component: Index
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      children:[
+        {
+          path: '/',
+          component: resolve => require(['@/components/Admin/AdminContent'], resolve)
+        },
+        {
+          path: 'todo',
+          component: resolve => require(['@/pages/ToDo'], resolve)
+        }
+      ],
+      component: Admin
     }
   ]
 })

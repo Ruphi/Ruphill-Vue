@@ -4,7 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-Vue.config.productionTip = false
+import Vuetify from 'vuetify'
+import Vuelidate from 'vuelidate'
+import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont'
+
+Vue.use(Vuetify,{iconfont: 'md'});
+Vue.use(Vuelidate);
+
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
