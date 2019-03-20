@@ -1,8 +1,17 @@
 <template>
   <div>
     <v-stepper vertical>
-      <v-stepper-step step="2">
-        开发ToDo应用
+      <v-stepper-step step="3">
+        待确认中
+      </v-stepper-step>
+
+      <v-stepper-content step="3">
+        <v-card>
+          <v-card-title></v-card-title>
+        </v-card>
+      </v-stepper-content>
+      <v-stepper-step step="2" complete>
+        2019-03-21 开发基于indexedDB的简单ToDo应用
       </v-stepper-step>
 
       <v-stepper-content step="2">
