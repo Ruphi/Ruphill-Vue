@@ -12,13 +12,13 @@
 
             <v-list-tile-action class="ruphi-list-title-action-min-width">
               <div class="text-xs-center">
-                <v-btn fab icon small @click="complete(item.id, item.content)">
+                <v-btn flat icon small @click="complete(item.id, item.content)" v-show="!item.complete" color="blue" class="ruphi-todo-btns">
                   <v-icon dark>done</v-icon>
                 </v-btn>
-                <v-btn fab icon small @click="undo(item.id, item.content)">
+                <v-btn flat icon small @click="undo(item.id, item.content)" v-show="item.complete" class="ruphi-todo-btns">
                   <v-icon dark>undo</v-icon>
                 </v-btn>
-                <v-btn fab icon small @click="del(item.id)">
+                <v-btn flat icon small @click="del(item.id)" color="red" class="ruphi-todo-btns">
                   <v-icon dark>delete</v-icon>
                 </v-btn>
               </div>
@@ -130,6 +130,8 @@
               .add({ content: that.task, complete: false});
 
             request.onsuccess = function (event) {
+              that.task = '';
+              that.$v.task.$reset();
               let objectStore = that.db.transaction('task').objectStore('task');
               that.tasks = [];
               objectStore.openCursor().onsuccess = function (event) {
@@ -239,5 +241,9 @@
      margin-top: 100px;
    }
  }
+
+  .ruphi-todo-btns{
+    margin: 0 5px;
+  }
 
 </style>
