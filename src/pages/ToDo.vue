@@ -2,30 +2,36 @@
     <v-container style="height: 100%; max-height: 100%">
       <div class="ruphi-todo-list-wrap">
         <v-list
-          v-for="item in tasks"
+          v-for="(item, index) in tasks"
           :key="item.id"
         >
           <v-list-tile>
             <v-list-tile-content>
-              <v-list-tile-title v-bind:class="{complete: item.complete}" v-show="false">{{item.content}}</v-list-tile-title>
-              <v-list-tile-sub-title v-if="editable[item.id]">
+              <v-list-tile-title v-bind:class="{complete: item.complete}" v-show="!editable[index]">{{item.content}}</v-list-tile-title>
+              <v-list-tile-sub-title v-show="editable[index]">
                 <v-text-field
+                  v-model="newTask"
                   label="编辑任务"
                   placeholder="任务描述"
+                  append-icon="cancel"
+                  append-outer-icon="send"
+                  @click:append="cancelUpdate(index)"
+                  @click:append-outer="sendChange(index, item)"
+                  v-on:keyup.enter="sendChange(index, item)"
                 ></v-text-field>
               </v-list-tile-sub-title>
             </v-list-tile-content>
 
-            <v-list-tile-action class="ruphi-list-title-action-min-width">
+            <v-list-tile-action class="ruphi-list-title-action-min-width" v-show="!editable[index]">
               <div class="text-xs-center">
-                <v-btn flat icon small color="blue" class="ruphi-todo-btns" @click="edit(item.id, item.content)">
-                  <v-icon dark>edit</v-icon>
-                </v-btn>
                 <v-btn flat icon small @click="complete(item.id, item.content)" v-show="!item.complete" color="blue" class="ruphi-todo-btns">
                   <v-icon dark>done</v-icon>
                 </v-btn>
                 <v-btn flat icon small @click="undo(item.id, item.content)" v-show="item.complete" class="ruphi-todo-btns">
                   <v-icon dark>undo</v-icon>
+                </v-btn>
+                <v-btn flat icon small color="blue" class="ruphi-todo-btns" @click="edit(index, item.id, item.content)">
+                  <v-icon dark>edit</v-icon>
                 </v-btn>
                 <v-btn flat icon small @click="del(item.id)" color="red" class="ruphi-todo-btns">
                   <v-icon dark>delete</v-icon>
@@ -53,15 +59,15 @@
 
       <v-snackbar
         v-model="snackbar"
-        :bottom="y === 'bottom'"
-        :left="x === 'left'"
-        :multi-line="mode === 'multi-line'"
-        :right="x === 'right'"
-        :timeout="timeout"
-        :top="y === 'top'"
-        :vertical="mode === 'vertical'"
+        :bottom="snackbarY === 'bottom'"
+        :left="snackbarX === 'left'"
+        :multi-line="snackbarMode === 'multi-line'"
+        :right="snackbarX === 'right'"
+        :timeout="snackbarTimeout"
+        :top="snackbarY === 'top'"
+        :vertical="snackbarMode === 'vertical'"
       >
-        {{ text }}
+        {{ snackbarText }}
         <v-btn
           color="pink"
           flat
@@ -74,43 +80,50 @@
 </template>
 
 <script>
-    import {required} from 'vuelidate/lib/validators'
+    import {required} from 'vuelidate/lib/validators';
+
+    const onUpdateSuccessFn = function (event, that) {
+      let objectStore = that.db.transaction('task').objectStore('task');
+      that.tasks = [];
+      that.editable = [];
+      objectStore.openCursor().onsuccess = function (event) {
+        let cursor = event.target.result;
+        if (cursor) {
+          let temp = {id: cursor.key, content: cursor.value.content, complete: cursor.value.complete};
+          that.tasks.push(temp);
+          that.editable.push(false);
+          cursor.continue();
+        }
+      };
+    };
+
     export default {
       name: "ToDo",
       validations: {
         task: {required}
       },
+
       data: ()=>({
         task: '',
+        newTask: '',
         tasks: [],
         db: null,
         taskObjectStore: null,
         editable: [],
         snackbar: false,
-        y: 'top',
-        x: null,
-        mode: '',
-        timeout: 6000,
-        text: '已存在要添加的任务！'
+        snackbarY: 'top',
+        snackbarX: null,
+        snackbarMode: '',
+        snackbarTimeout: 6000,
+        snackbarText: '已存在要添加的任务！'
       }),
+
       created(){
         let that = this;
         let request = window.indexedDB.open('localTasks');
-        request.onerror = function(){
-          console.log('本地代办事项数据库打开失败！');
-        };
         request.onsuccess = function (ev){
           that.db = request.result;
-          let objectStore = that.db.transaction('task').objectStore('task');
-          that.tasks = [];
-          objectStore.openCursor().onsuccess = function (event) {
-            let cursor = event.target.result;
-            if (cursor) {
-              let temp = {id: cursor.key, content: cursor.value.content, complete: cursor.value.complete};
-              that.tasks.push(temp);
-              cursor.continue();
-            }
-          };
+          onUpdateSuccessFn(ev, that);
         };
         request.onupgradeneeded = function (event) {
           that.db = event.target.result;
@@ -121,6 +134,7 @@
           }
         };
       },
+
       computed: {
         setErrMsg: function () {
           const errors = [];
@@ -130,6 +144,7 @@
           return errors;
         }
       },
+
       methods: {
         addTask: function (ev) {
           this.$v.task.$touch();
@@ -142,19 +157,11 @@
             request.onsuccess = function (event) {
               that.task = '';
               that.$v.task.$reset();
-              let objectStore = that.db.transaction('task').objectStore('task');
-              that.tasks = [];
-              objectStore.openCursor().onsuccess = function (event) {
-                let cursor = event.target.result;
-                if (cursor) {
-                  let temp = {id: cursor.key, content: cursor.value.content, complete: cursor.value.complete};
-                  that.tasks.push(temp);
-                  cursor.continue();
-                }
-              };
+              onUpdateSuccessFn(event, that);
             };
 
             request.onerror = function (event) {
+              that.snackbarText = '已存在要添加的任务！'
               that.snackbar = true;
             }
           }
@@ -165,23 +172,9 @@
             .objectStore('task')
             .put({content:content, complete: true});
 
-
           request.onsuccess = function (event) {
-            let objectStore = that.db.transaction('task').objectStore('task');
-            that.tasks = [];
-            objectStore.openCursor().onsuccess = function (event) {
-              let cursor = event.target.result;
-              if (cursor) {
-                let temp = {id: cursor.key, content: cursor.value.content, complete: cursor.value.complete};
-                that.tasks.push(temp);
-                cursor.continue();
-              }
-            };
+            onUpdateSuccessFn(event, that);
           };
-
-          request.onerror = function (event) {
-
-          }
         },
         undo: function (id, content) {
           let that = this;
@@ -190,44 +183,55 @@
             .put({content: content, complete: false});
 
           request.onsuccess = function (event) {
-            let objectStore = that.db.transaction('task').objectStore('task');
-            that.tasks = [];
-            objectStore.openCursor().onsuccess = function (event) {
-              let cursor = event.target.result;
-              if (cursor) {
-                let temp = {id: cursor.key, content: cursor.value.content, complete: cursor.value.complete};
-                that.tasks.push(temp);
-                cursor.continue();
-              }
-            };
+            onUpdateSuccessFn(event, that);
           };
-
-          request.onerror = function (event) {
-            console.log('数据更新失败');
-          }
         },
         del: function (id) {
           let that = this;
-
           let request = this.db.transaction(['task'], 'readwrite')
             .objectStore('task')
             .delete(id);
 
           request.onsuccess = function (event) {
-            let objectStore = that.db.transaction('task').objectStore('task');
-            that.tasks = [];
-            objectStore.openCursor().onsuccess = function (event) {
-              let cursor = event.target.result;
-              if (cursor) {
-                let temp = {id: cursor.key, content: cursor.value.content, complete: cursor.value.complete};
-                that.tasks.push(temp);
-                cursor.continue();
-              }
-            };
+            onUpdateSuccessFn(event, that);
           };
         },
-        edit: function (id, content) {
-          console.log(id, content);
+        edit: function (index, id, content) {
+          this.newTask = content;
+          for (let i = 0; i < this.editable.length; i++) {
+            this.editable[i] = false;
+          }
+          this.editable[index] = true;
+          this.$forceUpdate();
+        },
+        sendChange: function (index, item) {
+          if (this.newTask === item.content) {//未修改
+            this.editable[index] = false;
+            this.$forceUpdate();
+          }else if (this.newTask.trim() !== '') {//修改了
+            let that = this;
+            let request = this.db.transaction(['task'], 'readwrite')
+              .objectStore('task')
+              .add({content:that.newTask, complete: item.complete});
+
+            request.onsuccess = function (event) {
+              let request = that.db.transaction(['task'], 'readwrite')
+                .objectStore('task')
+                .delete(item.id);
+
+              request.onsuccess = function (event) {
+                onUpdateSuccessFn(event, that);
+              };
+            };
+            request.onerror = function () {
+              that.snackbarText = '存在相同的任务！';
+              that.snackbar = true;
+            }
+          }
+        },
+        cancelUpdate: function (index) {
+          this.editable[index] = false;
+          this.$forceUpdate();
         }
       },
     }
@@ -235,7 +239,7 @@
 
 <style scoped>
  .complete{
-   color: #ccc;
+   color: #9E9E9E;
    text-decoration: line-through;
  }
 
@@ -256,7 +260,7 @@
  }
 
   .ruphi-todo-btns{
-    margin: 0 5px!important;
+    margin: 0 0!important;
   }
 
 </style>

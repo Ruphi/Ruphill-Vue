@@ -12,8 +12,8 @@
         <v-btn flat>文章</v-btn>
         <v-btn flat>图片</v-btn>
         <v-btn flat>音乐</v-btn>
-        <v-btn flat>关于我</v-btn>
         <v-btn flat active-class="default-class" @click="toAdmin">管理</v-btn>
+        <v-btn flat>关于我</v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-md-and-up">
         <v-btn icon>
@@ -28,7 +28,7 @@
         <v-btn icon>
           <v-icon>settings_applications</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon @click="toAdmin">
           <v-icon>perm_identity</v-icon>
         </v-btn>
       </v-toolbar-items>
@@ -45,7 +45,7 @@
           this.$emit('HeaderDrawer', !temp);
         },
         toAdmin: function () {
-          this.$router.push('/admin');
+          this.$router.push('/admin/todo');
         }
       }
     }
