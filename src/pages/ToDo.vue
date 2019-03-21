@@ -7,18 +7,27 @@
         >
           <v-list-tile>
             <v-list-tile-content>
-              <v-list-tile-title v-bind:class="{complete: item.complete}">{{item.content}}</v-list-tile-title>
+              <v-list-tile-title v-bind:class="{complete: item.complete}" v-show="false">{{item.content}}</v-list-tile-title>
+              <v-list-tile-sub-title v-if="editable[item.id]">
+                <v-text-field
+                  label="编辑任务"
+                  placeholder="任务描述"
+                ></v-text-field>
+              </v-list-tile-sub-title>
             </v-list-tile-content>
 
             <v-list-tile-action class="ruphi-list-title-action-min-width">
               <div class="text-xs-center">
-                <v-btn fab icon small @click="complete(item.id, item.content)">
+                <v-btn flat icon small color="blue" class="ruphi-todo-btns" @click="edit(item.id, item.content)">
+                  <v-icon dark>edit</v-icon>
+                </v-btn>
+                <v-btn flat icon small @click="complete(item.id, item.content)" v-show="!item.complete" color="blue" class="ruphi-todo-btns">
                   <v-icon dark>done</v-icon>
                 </v-btn>
-                <v-btn fab icon small @click="undo(item.id, item.content)">
+                <v-btn flat icon small @click="undo(item.id, item.content)" v-show="item.complete" class="ruphi-todo-btns">
                   <v-icon dark>undo</v-icon>
                 </v-btn>
-                <v-btn fab icon small @click="del(item.id)">
+                <v-btn flat icon small @click="del(item.id)" color="red" class="ruphi-todo-btns">
                   <v-icon dark>delete</v-icon>
                 </v-btn>
               </div>
@@ -76,6 +85,7 @@
         tasks: [],
         db: null,
         taskObjectStore: null,
+        editable: [],
         snackbar: false,
         y: 'top',
         x: null,
@@ -130,6 +140,8 @@
               .add({ content: that.task, complete: false});
 
             request.onsuccess = function (event) {
+              that.task = '';
+              that.$v.task.$reset();
               let objectStore = that.db.transaction('task').objectStore('task');
               that.tasks = [];
               objectStore.openCursor().onsuccess = function (event) {
@@ -213,6 +225,9 @@
               }
             };
           };
+        },
+        edit: function (id, content) {
+          console.log(id, content);
         }
       },
     }
@@ -239,5 +254,9 @@
      margin-top: 100px;
    }
  }
+
+  .ruphi-todo-btns{
+    margin: 0 5px!important;
+  }
 
 </style>

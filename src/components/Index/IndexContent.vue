@@ -2,16 +2,17 @@
   <div>
     <v-stepper vertical>
       <v-stepper-step step="3">
-        待确认中
+        后续优化、完善
       </v-stepper-step>
 
       <v-stepper-content step="3">
         <v-card>
-          <v-card-title></v-card-title>
+          <v-card-title>实现任务信息的修改</v-card-title>
         </v-card>
       </v-stepper-content>
+
       <v-stepper-step step="2" complete>
-        2019-03-21 开发基于indexedDB的简单ToDo应用
+        2019-03-21 完成todo应用的基本开发，能够新增、删除、完成、撤销完成任务。
       </v-stepper-step>
 
       <v-stepper-content step="2">
