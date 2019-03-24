@@ -44,7 +44,8 @@
               action: 'dashboard',
               title: '管理面板',
               items: [
-                { title: 'To Do' , to: '/admin/todo'}
+                { title: 'To Do' , to: '/admin/todo'},
+                { title: '图片上传', to: '/admin/imgUpload'}
               ]
             }
           ]

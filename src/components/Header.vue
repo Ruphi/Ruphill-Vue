@@ -53,7 +53,7 @@
 
 <style scoped>
   .ruphi-header{
-    z-index: 6;
+    z-index: 6000;
   }
   .ruphi-router-link{
     color: white;

@@ -1,8 +1,37 @@
 <template>
   <div>
     <v-stepper vertical>
-      <v-stepper-step step="3">
-        后续优化、完善
+      <v-stepper-step step="6" complete>
+        开启博客相关任务
+      </v-stepper-step>
+
+      <v-stepper-content step="6">
+        <v-card>
+          <v-card-title>首先实现博客的编辑和存储</v-card-title>
+        </v-card>
+      </v-stepper-content>
+
+      <v-stepper-step step="5" complete>
+        2019-03-24 实现图片的加载，并且能够查看大图
+      </v-stepper-step>
+      <v-stepper-content step="5">
+        <v-card>
+          <v-card-title></v-card-title>
+        </v-card>
+      </v-stepper-content>
+
+
+      <v-stepper-step step="4" complete>
+        2019-03-23 实现图片上传功能
+      </v-stepper-step>
+      <v-stepper-content step="4">
+        <v-card>
+          <v-card-title>实现图片上传功能</v-card-title>
+        </v-card>
+      </v-stepper-content>
+
+      <v-stepper-step step="3" complete>
+        2019-03-22 完成todo中 任务的修改
       </v-stepper-step>
 
       <v-stepper-content step="3">

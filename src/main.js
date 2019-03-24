@@ -4,13 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import axios from 'axios'
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont'
 
+
 Vue.use(Vuetify,{iconfont: 'md'});
 Vue.use(Vuelidate);
+Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false;
 

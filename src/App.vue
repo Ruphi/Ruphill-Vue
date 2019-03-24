@@ -22,4 +22,11 @@ export default {
   body{
     margin: 0;
   }
+
+  .v-navigation-drawer--is-mobile{
+    z-index: 6500;
+  }
+  .v-snack{
+    z-index: 6200;
+  }
 </style>

@@ -28,8 +28,8 @@
 </template>
 
 <script>
-    import Header from "../components/Header";
-    import AdminSideBar from "../components/Admin/AdminSideBar";
+    import Header from "../../components/Header";
+    import AdminSideBar from "../../components/Admin/AdminSideBar";
 
     export default {
       name: "Admin",

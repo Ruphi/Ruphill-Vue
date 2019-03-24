@@ -4,7 +4,8 @@ import Router from 'vue-router'
 
 import Welcome from '@/pages/Welcome'
 import Index from '@/pages/Index'
-import Admin from '@/pages/Admin'
+import Admin from '@/pages/Admin/Admin'
+import Pictures from '@/pages/Pictures'
 
 Vue.use(Router);
 
@@ -36,10 +37,19 @@ export default new Router({
         },
         {
           path: 'todo',
-          component: resolve => require(['@/pages/ToDo'], resolve)
+          component: resolve => require(['@/pages/Admin/ToDo'], resolve)
+        },
+        {
+          path: 'imgUpload',
+          component: resolve => require(['@/pages/Admin/ImgUpload'], resolve)
         }
       ],
       component: Admin
+    },
+    {
+      path: '/pictures',
+      name: 'Pictures',
+      component: Pictures
     }
   ]
 })
