@@ -10,7 +10,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat>文章</v-btn>
-        <v-btn flat>图片</v-btn>
+        <v-btn flat @click="toPictures">图库</v-btn>
         <v-btn flat>音乐</v-btn>
         <v-btn flat active-class="default-class" @click="toAdmin">管理</v-btn>
         <v-btn flat>关于我</v-btn>
@@ -19,7 +19,7 @@
         <v-btn icon>
           <v-icon>library_books</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon @click="toPictures">
           <v-icon>photo_library</v-icon>
         </v-btn>
         <v-btn icon>
@@ -46,6 +46,9 @@
         },
         toAdmin: function () {
           this.$router.push('/admin/todo');
+        },
+        toPictures: function () {
+          this.$router.push('/pictures')
         }
       }
     }
