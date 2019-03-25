@@ -6,7 +6,7 @@
           <v-card>
             <v-container grid-list-md fluid>
               <v-layout row wrap>
-                <v-flex xs4 v-for="(item,index) in imgArr" :key="index">
+                <v-flex xs6 sm4 v-for="(item,index) in imgArr" :key="index">
                   <v-card  tile @click="loadFullImg(item)">
                     <v-img :src="item" height="250">
                       <template v-slot:placeholder>
@@ -119,7 +119,7 @@
               this.imgArr.push(this.resultArr[i]);
             }
           }
-          if (cursor_pre * 9 > this.resultArr.length) {
+          if (cursor_pre * 9 >= this.resultArr.length) {
             this.snackbar = true;
           }
         },

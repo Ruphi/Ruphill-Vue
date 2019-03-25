@@ -25,10 +25,10 @@
         <v-btn icon>
           <v-icon>library_music</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon @click="toAdmin">
           <v-icon>settings_applications</v-icon>
         </v-btn>
-        <v-btn icon @click="toAdmin">
+        <v-btn icon>
           <v-icon>perm_identity</v-icon>
         </v-btn>
       </v-toolbar-items>

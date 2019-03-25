@@ -3,7 +3,7 @@
       <div class="ruphi-todo-list-wrap">
         <v-list
           v-for="(item, index) in tasks"
-          :key="item.id"
+          :key="index"
         >
           <v-list-tile>
             <v-list-tile-content>
@@ -24,16 +24,16 @@
 
             <v-list-tile-action class="ruphi-list-title-action-min-width" v-show="!editable[index]">
               <div class="text-xs-center">
-                <v-btn flat icon small @click="complete(item.id, item.content)" v-show="!item.complete" color="blue" class="ruphi-todo-btns">
+                <v-btn flat icon small @click="complete(index, item.content)" v-show="!item.complete" color="blue" class="ruphi-todo-btns">
                   <v-icon dark>done</v-icon>
                 </v-btn>
-                <v-btn flat icon small @click="undo(item.id, item.content)" v-show="item.complete" class="ruphi-todo-btns">
+                <v-btn flat icon small @click="undo(index, item.content)" v-show="item.complete" class="ruphi-todo-btns">
                   <v-icon dark>undo</v-icon>
                 </v-btn>
-                <v-btn flat icon small color="blue" class="ruphi-todo-btns" @click="edit(index, item.id, item.content)">
+                <v-btn flat icon small color="blue" class="ruphi-todo-btns" @click="edit(index, item.content)">
                   <v-icon dark>edit</v-icon>
                 </v-btn>
-                <v-btn flat icon small @click="del(item.id)" color="red" class="ruphi-todo-btns">
+                <v-btn flat icon small @click="del(index, item.content)" color="red" class="ruphi-todo-btns">
                   <v-icon dark>delete</v-icon>
                 </v-btn>
               </div>
@@ -84,13 +84,13 @@
 
     const onUpdateSuccessFn = function (event, that) {
       let objectStore = that.db.transaction('task').objectStore('task');
-      that.tasks = [];
+      /*that.tasks = [];*/
       that.editable = [];
       objectStore.openCursor().onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-          let temp = {id: cursor.key, content: cursor.value.content, complete: cursor.value.complete};
-          that.tasks.push(temp);
+          //let temp = {id: cursor.key, content: cursor.value.content, complete: cursor.value.complete};
+          // that.tasks.push(temp);
           that.editable.push(false);
           cursor.continue();
         }
@@ -123,7 +123,18 @@
         let request = window.indexedDB.open('localTasks');
         request.onsuccess = function (ev){
           that.db = request.result;
-          onUpdateSuccessFn(ev, that);
+          let objectStore = that.db.transaction('task').objectStore('task');
+          that.tasks = [];
+          that.editable = [];
+          objectStore.openCursor().onsuccess = function (event) {
+            let cursor = event.target.result;
+            if (cursor) {
+              let temp = {/*id: cursor.key, */content: cursor.value.content, complete: cursor.value.complete};
+              that.tasks.push(temp);
+              that.editable.push(false);
+              cursor.continue();
+            }
+          };
         };
         request.onupgradeneeded = function (event) {
           that.db = event.target.result;
@@ -155,18 +166,19 @@
               .add({ content: that.task, complete: false});
 
             request.onsuccess = function (event) {
+              onUpdateSuccessFn(event, that);
+              that.tasks.unshift({content: that.task, complete: false});
               that.task = '';
               that.$v.task.$reset();
-              onUpdateSuccessFn(event, that);
             };
 
             request.onerror = function (event) {
-              that.snackbarText = '已存在要添加的任务！'
+              that.snackbarText = '已存在要添加的任务！';
               that.snackbar = true;
             }
           }
         },
-        complete: function (id, content) {
+        complete: function (index, content) {
           let that = this;
           let request = this.db.transaction(['task'], 'readwrite')
             .objectStore('task')
@@ -174,9 +186,10 @@
 
           request.onsuccess = function (event) {
             onUpdateSuccessFn(event, that);
+            that.tasks[index]['complete'] = true;
           };
         },
-        undo: function (id, content) {
+        undo: function (index, content) {
           let that = this;
           let request = this.db.transaction(['task'], 'readwrite')
             .objectStore('task')
@@ -184,9 +197,10 @@
 
           request.onsuccess = function (event) {
             onUpdateSuccessFn(event, that);
+            that.tasks[index]['complete'] = false;
           };
         },
-        del: function (id) {
+        del: function (index,id) {
           let that = this;
           let request = this.db.transaction(['task'], 'readwrite')
             .objectStore('task')
@@ -194,9 +208,10 @@
 
           request.onsuccess = function (event) {
             onUpdateSuccessFn(event, that);
+            that.tasks.splice(index, 1);
           };
         },
-        edit: function (index, id, content) {
+        edit: function (index, content) {
           this.newTask = content;
           for (let i = 0; i < this.editable.length; i++) {
             this.editable[i] = false;
@@ -217,10 +232,11 @@
             request.onsuccess = function (event) {
               let request = that.db.transaction(['task'], 'readwrite')
                 .objectStore('task')
-                .delete(item.id);
+                .delete(item.content);
 
               request.onsuccess = function (event) {
                 onUpdateSuccessFn(event, that);
+                that.tasks.splice(index, 1, {content: that.newTask, complete: item.complete});
               };
             };
             request.onerror = function () {
