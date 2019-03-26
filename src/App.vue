@@ -27,6 +27,6 @@ export default {
     z-index: 6500;
   }
   .v-snack{
-    z-index: 6200;
+    z-index: 6200!important;
   }
 </style>
