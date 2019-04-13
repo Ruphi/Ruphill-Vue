@@ -42,6 +42,10 @@ export default new Router({
         {
           path: 'imgUpload',
           component: resolve => require(['@/pages/Admin/ImgUpload'], resolve)
+        },
+        {
+          path: 'editor',
+          component: resolve => require(['@/pages/Admin/Editor'], resolve)
         }
       ],
       component: Admin

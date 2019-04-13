@@ -19,7 +19,7 @@
         <v-list-tile
           v-for="subItem in item.items"
           :key="subItem.title"
-          @click=""
+          @click="goto(subItem.to)"
         >
           <v-list-tile-content @click="goto(subItem.to)">
             <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
@@ -45,7 +45,8 @@
               title: '管理面板',
               items: [
                 { title: 'To Do' , to: '/admin/todo'},
-                { title: '图片上传', to: '/admin/imgUpload'}
+                { title: '图片上传', to: '/admin/imgUpload'},
+                { title: '写文章', to: '/admin/editor'}
               ]
             }
           ]

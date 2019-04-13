@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.7.2",
+    "@tinymce/tinymce-vue": "^2.0.0",
     "autoprefixer": "^7.1.2",
     "axios": "^0.18.0",
     "babel-core": "^6.22.1",
@@ -68,6 +69,7 @@
     "selenium-server": "^3.0.1",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
+    "tinymce": "^5.0.3",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-cloudinary": "^0.2.1",
