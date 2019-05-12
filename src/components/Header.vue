@@ -1,6 +1,6 @@
 <template>
     <v-toolbar color="primary" class="ruphi-header" fixed clipped dark>
-      <v-btn icon class="hidden-md-and-up" @click="returnHeaderDrawer">
+      <v-btn icon class="hidden-md-and-up" @click="toggleDrawer">
         <v-icon>menu</v-icon>
       </v-btn>
       <v-avatar class="hidden-sm-and-down">
@@ -38,11 +38,9 @@
 <script>
     export default {
       name: "Header",
-      props: ['prop-drawer'],
       methods:{
-        returnHeaderDrawer: function () {
-          var temp = this.$props.propDrawer;
-          this.$emit('HeaderDrawer', !temp);
+        toggleDrawer: function () {
+          this.$store.commit('toggleDrawer');
         },
         toAdmin: function () {
           this.$router.push('/admin/todo');

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-stepper vertical>
-      <v-stepper-step step="6" complete>
+      <v-stepper-step step="6">
         开启博客相关任务
       </v-stepper-step>
 

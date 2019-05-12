@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer @input="returnSideBarDrawer" class="ruphi-index-sidebar" clipped fixed app v-model="getDrawer" mobile-break-point="960">
+  <v-navigation-drawer class="ruphi-index-sidebar" clipped fixed app v-model="drawer" mobile-break-point="960">
     <div class="ruphi-limit-max-height">
       <SideBarHeader></SideBarHeader>
       <IndexSideBarList></IndexSideBarList>
@@ -10,7 +10,7 @@
     </v-bottom-nav>
     <v-btn
       class="ruphi-collect-index-sidebar-btn hidden-sm-and-down"
-      @click="returnSidebarDrawerByCollectBtn"
+      @click="toggleDrawer"
       fab
       small
       dark
@@ -28,27 +28,22 @@
     export default {
       name: "IndexSideBar",
       components: {SideBarHeader, IndexSideBarList},
-      props: ['prop-drawer'],
       data(){
         return {
 
         }
       },
       methods: {
-        returnSideBarDrawer: function (event) {
-          this.$emit('SideBarDrawer', event);
-        },
-        returnSidebarDrawerByCollectBtn: function () {
-          var temp = this.$props.propDrawer;
-          this.$emit('SideBarDrawerByCollectBtn', temp);
+        toggleDrawer: function () {
+          this.$store.commit('toggleDrawer');
         }
       },
       computed: {
-        getDrawer: {
-          get: function () {
-            return this.$props.propDrawer;
+        drawer:{
+          get(){
+            return this.$store.state.drawer
           },
-          set: function () {
+          set(){
 
           }
         }

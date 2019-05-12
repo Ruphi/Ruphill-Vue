@@ -10,6 +10,8 @@ import Vuelidate from 'vuelidate'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont'
 
+import store from './store'
+
 
 Vue.use(Vuetify,{iconfont: 'md'});
 Vue.use(Vuelidate);
@@ -20,6 +22,7 @@ Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>'

@@ -1,12 +1,8 @@
 <template>
   <v-app>
-    <Header :prop-drawer="drawer" v-on:HeaderDrawer="getHeaderDrawer"></Header>
+    <Header></Header>
     <v-content>
-      <AdminSideBar
-        :prop-drawer="drawer"
-        v-on:SideBarDrawer="getSideBarDrawer"
-        v-on:SideBarDrawerByCollectBtn="getSideBarDrawerByCollectBtn"
-      ></AdminSideBar>
+      <AdminSideBar></AdminSideBar>
       <v-content class="ruphi-index-content">
         <v-btn
           class="ruphi-spread-index-sidebar-btn hidden-sm-and-down"
@@ -36,21 +32,22 @@
       components: {AdminSideBar, Header},
       data(){
         return {
-          drawer: false,
+
+        }
+      },
+      computed: {
+        drawer:{
+          get(){
+            return this.$store.state.drawer;
+          },
+          set(){
+
+          }
         }
       },
       methods: {
-        getHeaderDrawer: function (data) {
-          this.drawer = data;
-        },
-        getSideBarDrawer: function (data) {
-          this.drawer = data;
-        },
-        getSideBarDrawerByCollectBtn:function (data){
-          this.drawer = !data;
-        },
         toggleDrawer: function () {
-          this.drawer = !this.drawer;
+          this.$store.commit('toggleDrawer');
         }
       }
     }
