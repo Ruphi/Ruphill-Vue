@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer class="ruphi-index-sidebar" clipped fixed app v-model="drawer" mobile-break-point="960">
+  <v-navigation-drawer class="ruphi-index-sidebar" @input="setDrawerByInput" clipped fixed app v-model="drawer" mobile-break-point="960">
     <div class="ruphi-limit-max-height">
       <SideBarHeader></SideBarHeader>
       <AdminSideBarList></AdminSideBarList>
@@ -10,7 +10,7 @@
     </v-bottom-nav>
     <v-btn
       class="ruphi-collect-index-sidebar-btn hidden-sm-and-down"
-      @click="toggleDrawer"
+      @click.stop="toggleDrawer"
       fab
       small
       dark
@@ -33,7 +33,18 @@
 
         }
       },
+      created(){
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+          case 'sm':
+            this.$store.commit('toggleDrawer');
+            break;
+        }
+      },
       methods: {
+        setDrawerByInput: function (ev){
+          this.$store.commit('setDrawerByInput', ev)
+        },
         toggleDrawer: function () {
           this.$store.commit('toggleDrawer');
         }

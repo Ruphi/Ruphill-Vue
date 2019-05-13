@@ -5,11 +5,17 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    drawer: null
+    drawer: true
   },
   mutations: {
     toggleDrawer: function (state) {
-      state.drawer = !state.drawer;
+      state.drawer = !state.drawer
+    },
+    setDrawerAsTrue: function (state) {
+      state.drawer = true;
+    },
+    setDrawerByInput: function (state, ev) {
+      state.drawer = ev;
     }
   }
 });

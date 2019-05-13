@@ -1,6 +1,6 @@
 <template>
     <v-toolbar color="primary" class="ruphi-header" fixed clipped dark>
-      <v-btn icon class="hidden-md-and-up" @click="toggleDrawer">
+      <v-btn icon class="hidden-md-and-up" @click="setDrawerAsTrue">
         <v-icon>menu</v-icon>
       </v-btn>
       <v-avatar class="hidden-sm-and-down">
@@ -39,8 +39,8 @@
     export default {
       name: "Header",
       methods:{
-        toggleDrawer: function () {
-          this.$store.commit('toggleDrawer');
+        setDrawerAsTrue: function () {
+          this.$store.commit('setDrawerAsTrue');
         },
         toAdmin: function () {
           this.$router.push('/admin/todo');
