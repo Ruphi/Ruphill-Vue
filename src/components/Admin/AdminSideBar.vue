@@ -43,7 +43,7 @@
       },
       methods: {
         setDrawerByInput: function (ev){
-          this.$store.commit('setDrawerByInput', ev)
+          this.$store.commit('setDrawerByInput', ev);
         },
         toggleDrawer: function () {
           this.$store.commit('toggleDrawer');
