@@ -11,6 +11,7 @@ Vue.use(Router);
 
 
 export default new Router({
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/',
@@ -19,36 +20,46 @@ export default new Router({
     },{
       path: '/index',
       name: 'Index',
+      component: Index,
       children:[
         {
           path: '/',
           component: resolve => require(['@/components/Index/IndexContent'], resolve)
+        },
+        {
+          path: 'ife/:page',
+          component: resolve => require(['@/components/Ife/Ife'], resolve),
         }
-      ],
-      component: Index
+      ]
     },
     {
       path: '/admin',
       name: 'Admin',
+      component: Admin,
+      query: {
+        componentPage: 'Admin'
+      },
       children:[
         {
           path: '/',
           component: resolve => require(['@/components/Admin/AdminContent'], resolve)
         },
         {
-          path: 'todo',
-          component: resolve => require(['@/pages/Admin/ToDo'], resolve)
+          path: 'dashboard/todo',
+          component: resolve => require(['@/pages/Admin/ToDo'], resolve),
+          query: {
+            componentPage: 'Index'
+          }
         },
         {
-          path: 'imgUpload',
+          path: 'dashboard/imgUpload',
           component: resolve => require(['@/pages/Admin/ImgUpload'], resolve)
         },
         {
-          path: 'editor',
+          path: 'dashboard/editor',
           component: resolve => require(['@/pages/Admin/Editor'], resolve)
         }
-      ],
-      component: Admin
+      ]
     },
     {
       path: '/pictures',

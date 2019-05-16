@@ -2,7 +2,7 @@
   <v-navigation-drawer class="ruphi-index-sidebar" @input="setDrawerByInput" clipped fixed app v-model="drawer" mobile-break-point="960">
     <div class="ruphi-limit-max-height">
       <SideBarHeader></SideBarHeader>
-      <AdminSideBarList></AdminSideBarList>
+      <SideBarList></SideBarList>
     </div>
 
     <v-bottom-nav class="ruphi-bottom-nav">
@@ -23,43 +23,43 @@
 </template>
 
 <script>
-    import SideBarHeader from '../SideBarHeader';
-    import AdminSideBarList from './AdminSideBarList';
-    export default {
-      name: "AdminSideBar",
-      components: {SideBarHeader, AdminSideBarList},
-      data(){
-        return {
+  import SideBarList from "./SideBarList";
+  import SideBarHeader from "./SideBarHeader";
+  export default {
+    name: "SideBar",
+    components: {SideBarHeader, SideBarList},
+    data(){
+      return {
 
-        }
-      },
-      created(){
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-          case 'sm':
-            this.$store.commit('toggleDrawer');
-            break;
-        }
-      },
-      methods: {
-        setDrawerByInput: function (ev){
-          this.$store.commit('setDrawerByInput', ev);
-        },
-        toggleDrawer: function () {
+      }
+    },
+    created(){
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+        case 'sm':
           this.$store.commit('toggleDrawer');
-        }
+          break;
+      }
+    },
+    methods: {
+      setDrawerByInput: function (ev){
+        this.$store.commit('setDrawerByInput', ev)
       },
-      computed: {
-        drawer:{
-          get(){
-            return this.$store.state.drawer;
-          },
-          set(){
+      toggleDrawer: function () {
+        this.$store.commit('toggleDrawer');
+      }
+    },
+    computed: {
+      drawer:{
+        get(){
+          return this.$store.state.drawer
+        },
+        set(){
 
-          }
         }
       }
     }
+  }
 </script>
 
 <style scoped>

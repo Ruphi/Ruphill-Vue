@@ -2,7 +2,7 @@
   <v-app>
     <Header></Header>
     <v-content>
-      <AdminSideBar></AdminSideBar>
+      <SideBar></SideBar>
       <v-content class="ruphi-index-content">
         <v-btn
           class="ruphi-spread-index-sidebar-btn hidden-sm-and-down"
@@ -25,11 +25,11 @@
 
 <script>
     import Header from "../../components/Header";
-    import AdminSideBar from "../../components/Admin/AdminSideBar";
+    import SideBar from "../../components/SideBar";
 
     export default {
       name: "Admin",
-      components: {AdminSideBar, Header},
+      components: {SideBar, Header},
       data(){
         return {
 

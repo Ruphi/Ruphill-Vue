@@ -43,7 +43,7 @@
           this.$store.commit('setDrawerAsTrue');
         },
         toAdmin: function () {
-          this.$router.push('/admin/todo');
+          this.$router.push('/admin/dashboard/todo');
         },
         toPictures: function () {
           this.$router.push('/pictures')
