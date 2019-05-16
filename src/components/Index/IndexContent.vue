@@ -1,13 +1,25 @@
 <template>
   <div>
     <v-stepper vertical>
-      <v-stepper-step step="6">
+      <v-stepper-step step="7">
         开启博客相关任务
       </v-stepper-step>
 
-      <v-stepper-content step="6">
+      <v-stepper-content step="7">
         <v-card>
           <v-card-title>首先实现博客的编辑和存储</v-card-title>
+        </v-card>
+      </v-stepper-content>
+
+      <v-stepper-step step="6" complete>
+        至2019-05-16<br/>
+        完成导航组件的重构，根据动态路由区分Index模块和Admin模块从而实现drawer组件的复用<br/>
+        新增百度IFE任务模块，可查看各个任务的完成效果<br/>
+        实现了v-list的激活状态<br/>
+      </v-stepper-step>
+      <v-stepper-content step="6">
+        <v-card>
+          <v-card-title></v-card-title>
         </v-card>
       </v-stepper-content>
 

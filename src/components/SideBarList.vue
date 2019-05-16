@@ -20,6 +20,7 @@
           v-for="subItem in item.items"
           :key="subItem.title"
           :href="'#'+subItem.to"
+          :to="{path: subItem.to}"
           ripple="ripple"
         >
           <v-list-tile-content>
@@ -80,5 +81,7 @@
 </script>
 
 <style scoped>
-
+  .v-list__tile--active{
+    background-color: #cccccc;
+  }
 </style>

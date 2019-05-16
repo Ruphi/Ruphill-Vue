@@ -7,7 +7,7 @@
         </v-list-tile-avatar>
 
         <v-list-tile-content>
-          <v-list-tile-title>一颗橡皮</v-list-tile-title>
+          <v-list-tile-title><router-link to="/index" class="ruphi-router-link">一颗橡皮</router-link></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -16,10 +16,16 @@
 
 <script>
     export default {
-        name: "SideBarHeader"
+      name: "SideBarHeader",
+      methods: {
+
+      }
     }
 </script>
 
 <style scoped>
-
+  .ruphi-router-link{
+    color: #000;
+    text-decoration: none;
+  }
 </style>
