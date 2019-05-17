@@ -26,6 +26,13 @@ export default {
   .v-navigation-drawer--is-mobile{
     z-index: 6500;
   }
+
+  @media screen and ( max-width: 960px){
+    .ruphi-index-sidebar {
+      z-index: 6500!important;
+    }
+  }
+  
   .v-snack{
     z-index: 6200!important;
   }

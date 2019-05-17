@@ -14,7 +14,12 @@
       },
       computed: {
         iframeSrc(){
-          return 'http://47.112.96.94/ife/' + this.$route.params.page + '.html'
+          let path = this.$route.path;
+          if (path.indexOf('BaiduIFE/HTML_CSS') > 0) {
+            return 'http://47.112.96.94/ife/BaiduIFE/HTML_CSS/' + this.$route.params.taskDic + '/' + this.$route.params.taskPage + '.html'
+          }else {
+            return 'http://47.112.96.94/ife/' + this.$route.params.page + '.html'
+          }
         }
       },
       created(){

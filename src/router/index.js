@@ -29,6 +29,10 @@ export default new Router({
         {
           path: 'ife/:page',
           component: resolve => require(['@/components/Ife/Ife'], resolve),
+        },
+        {
+          path: 'ife/BaiduIFE/HTML_CSS/:taskDic/:taskPage',
+          component: resolve => require(['@/components/Ife/Ife'], resolve),
         }
       ]
     },
