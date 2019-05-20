@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+const rpserver = axios.create({
+
+});
+
 // 请求拦截器
-axios.interceptors.request.use(function (config) {
+rpserver.interceptors.request.use(function (config) {
   config.url = 'http://127.0.0.1:3000' + config.url;
   console.log(config);
   return config;
@@ -9,4 +13,4 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(error);
 });
 
-export default axios;
+export default rpserver;

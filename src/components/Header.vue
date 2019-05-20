@@ -17,6 +17,9 @@
       </v-toolbar-items>
       <v-toolbar-items class="hidden-md-and-up">
         <v-btn icon>
+          <v-icon @click="goHome">home</v-icon>
+        </v-btn>
+        <v-btn icon>
           <v-icon>library_books</v-icon>
         </v-btn>
         <v-btn icon @click="toPictures">
@@ -39,6 +42,9 @@
     export default {
       name: "Header",
       methods:{
+        goHome(){
+          this.$router.push('/index');
+        },
         setDrawerAsTrue: function () {
           this.$store.commit('setDrawerAsTrue');
         },
