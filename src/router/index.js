@@ -14,6 +14,17 @@ export default new Router({
   linkActiveClass: 'active',
   routes: [
     {
+      path: '*',
+      redirect: {
+        path: '/404'
+      }
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: resolve => require(['@/pages/NotFound'], resolve)
+    },
+    {
       path: '/',
       name: 'Welcome',
       component: Welcome
@@ -27,11 +38,7 @@ export default new Router({
           component: resolve => require(['@/components/Index/IndexContent'], resolve)
         },
         {
-          path: 'ife/:page',
-          component: resolve => require(['@/components/Ife/Ife'], resolve),
-        },
-        {
-          path: 'ife/BaiduIFE/HTML_CSS/:taskDic/:taskPage',
+          path: 'projects/ife',
           component: resolve => require(['@/components/Ife/Ife'], resolve),
         }
       ]

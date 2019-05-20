@@ -52,16 +52,11 @@
     ],
     index: [
       {
-        action: 'all_inbox',
-        title: '百度IFE',
-        component: 'index/ife',
+        action: 'widgets',
+        title: '实战、练习',
+        component: 'index/projects',
         items: [
-          {title: '颜色选择器', to: '/index/ife/color-picker', component: 'color-picker'},
-          {title: '标签云', to: '/index/ife/tag-cloud', component: 'tag-cloud'},
-          {title: '仿百度页面-布局练习', to: '/index/ife/BaiduIFE/HTML_CSS/task1-2/task1', component: 'BaiduIFE/HTML_CSS/task1-2/task1'},
-          {title: '三栏式布局', to: '/index/ife/BaiduIFE/HTML_CSS/task3/task3', component: 'BaiduIFE/HTML_CSS/task3/task3'},
-          {title: '模拟报纸排版', to: '/index/ife/BaiduIFE/HTML_CSS/task6/task6_paper', component: 'BaiduIFE/HTML_CSS/task6/task6_paper'},
-          {title: '新世界页面', to: '/index/ife/BaiduIFE/HTML_CSS/task7/index', component: 'BaiduIFE/HTML_CSS/task7/index'}
+          {title: '百度IFE', to: '/index/projects/ife', component: 'ife'},
         ]
       }
     ]
