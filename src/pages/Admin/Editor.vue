@@ -1,5 +1,6 @@
 <template>
     <v-container>
+      <v-btn @click.stop.prevent="getData">测试接口调用</v-btn>
       <tiny-editor
         :init="options"
         v-model="content"></tiny-editor>
@@ -70,6 +71,15 @@
           emoticons_database_url:'/static/tinymce/emoticons/js/emojis.js',
           min_height: 500
         }
+      }
+    },
+    methods: {
+      getData(){
+        this.$rpserver.get('/blog/list').then(function (response) {
+          console.log(response);
+        }).catch(function (error) {
+          console.log(error);
+        })
       }
     },
     mounted() {
