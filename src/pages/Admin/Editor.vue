@@ -72,7 +72,7 @@ import 'tinymce/plugins/wordcount'
 import {required} from 'vuelidate/lib/validators'
 import TopSnackbar from "../../components/TopSnackbar";
 
-import baiduAI from '../../common/baiduAI';
+import aip from '../../common/aip';
 
 const timyMceOptions =  {
   language: 'zh_CN',
@@ -113,17 +113,28 @@ export default {
   },
   methods: {
     postBlog: function (ev) {
+      const that = this;
       this.$v.blogTitle.$touch();
       if (this.blogTitle.trim() === '' || this.blogContent.trim() === '') {
         this.showMsg('标题和内容都要写哦~');
       } else {
-        console.log(this.blogTitle, this.blogContent);
+
+        aip.getToken(function (response) {
+          console.log(response);
+          const rpData = JSON.parse(response.data.data);
+          aip.getTags({
+            access_token: rpData.access_token,
+            title: that.blogTitle,
+            content: that.delHtmlTag(that.blogContent)
+          }, function (res) {
+            console.log(res)
+          }, function (err) {
+            console.log(err);
+          });
+        }, function (error) {
+          console.log(error);
+        })
       }
-      baiduAI.getToken(function (response) {
-        console.log(response);
-      }, function (error) {
-        console.log(error);
-      })
     },
     saveBlog: function (){
       const that = this;
@@ -136,6 +147,9 @@ export default {
     showMsg: function (msg){
       this.snackbarText = msg;
       this.$store.commit('showTopSnackbar');
+    },
+    delHtmlTag (str){
+      return str.replace(/<[^>]+>/g,""); // 正则去掉所有的html标记
     }
   },
 
