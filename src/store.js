@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    drawer: true
+    drawer: true,
+    topSnackbar: false
   },
   mutations: {
     toggleDrawer: function (state) {
@@ -16,6 +17,12 @@ const store = new Vuex.Store({
     },
     setDrawerByInput: function (state, ev) {
       state.drawer = ev;
+    },
+    closeTopSnackbar: function (state) {
+      state.topSnackbar = false;
+    },
+    showTopSnackbar: function (state) {
+      state.topSnackbar = true;
     }
   }
 });
