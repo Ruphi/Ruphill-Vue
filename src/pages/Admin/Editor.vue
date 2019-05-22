@@ -105,6 +105,7 @@ export default {
     return {
       blogContent: '',
       blogTitle: '',
+      blogTag: [],
       snackbar: false,
       snackbarText: '',
       snackbarTimeout: 6000,
@@ -115,33 +116,44 @@ export default {
     postBlog: function (ev) {
       const that = this;
       this.$v.blogTitle.$touch();
+
       if (this.blogTitle.trim() === '' || this.blogContent.trim() === '') {
         this.showMsg('标题和内容都要写哦~');
       } else {
-
         aip.getToken(function (response) {
-          console.log(response);
-          const rpData = JSON.parse(response.data.data);
+          const rpData = response.data.data;
           aip.getTags({
             access_token: rpData.access_token,
             title: that.blogTitle,
             content: that.delHtmlTag(that.blogContent)
           }, function (res) {
-            console.log(res)
+            const tagItems = res.data.data.items;
+            that.blogTag = [];
+            tagItems.forEach(function (item) {
+              if (item.score > 0.8) {
+                that.blogTag.push(item.tag);
+              }
+            });
+            that.saveBlog();
           }, function (err) {
-            console.log(err);
+            that.showMsg('获取文章标签失败！');
           });
         }, function (error) {
-          console.log(error);
+          that.showMsg('获取百度智能云token失败！');
         })
       }
     },
     saveBlog: function (){
       const that = this;
-      this.$rpserver.post('/save', {
+      this.$rpserver.post('/blog/save', {
         title: that.blogTitle,
         content: that.blogContent,
+        tag: that.blogTag,
         date: Date.now()
+      }).then(function (response) {
+        that.showMsg(response.data.message);
+      }).catch(function (err) {
+        console.log(err);
       })
     },
     showMsg: function (msg){

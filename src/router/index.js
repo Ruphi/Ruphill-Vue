@@ -69,6 +69,10 @@ export default new Router({
         {
           path: 'dashboard/editor',
           component: resolve => require(['@/pages/Admin/Editor'], resolve)
+        },
+        {
+          path: 'dashboard/blog-admin',
+          component: resolve => require(['@/pages/Admin/BlogList'], resolve)
         }
       ]
     },
