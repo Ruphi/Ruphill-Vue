@@ -8,6 +8,7 @@
     :timeout="snackbarTimeout"
     :top="snackbarY === 'top'"
     :vertical="snackbarMode === 'vertical'"
+    @input="close"
   >
     {{ snackbarText }}
     <v-btn
