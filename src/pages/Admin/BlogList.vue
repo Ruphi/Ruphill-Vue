@@ -122,7 +122,6 @@
                 item.date = that.$moment(item.date).format('YYYY-MM-DD HH:mm:ss');
                 that.blogs.push(item);
               });
-              console.log(that.blogs);
               that.$forceUpdate();
             }else {
               that.showMsg('获取博客列表失败！');
