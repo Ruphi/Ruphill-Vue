@@ -89,7 +89,7 @@ const timyMceOptions =  {
   language_url: '/static/tinymce/langs/zh_CN.js',
   skin_url: '/static/tinymce/skins/ui/oxide',
   plugins: 'lists, advlist, autosave, autoresize, code, codesample, table, emoticons, hr, charmap, autolink link image imagetools insertdatetime legacyoutput tabfocus searchreplace nonbreaking preview print pagebreak wordcount visualblocks textpattern template toc',
-  toolbar: 'bullist numlist forecolor backcolor codesample table, emoticons hr charmap link image insertdatetime searchreplace nonbreaking preview print pagebreak visualblocks template toc',
+  toolbar: 'bullist numlist forecolor backcolor codesample table, emoticons hr charmap link image insertdatetime searchreplace nonbreaking preview print pagebreak visualblocks template paste toc',
   mobile: {
     theme: 'mobile',
     plugins: ['autosave', 'lists', 'autolink'],
@@ -99,6 +99,8 @@ const timyMceOptions =  {
   imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
   tabfocus_elements: ':prev,:next',
   emoticons_database_url: '/static/tinymce/emoticons/js/emojis.js',
+  images_upload_url: 'http://127.0.0.1:3000/qiniu/uploadImg',
+  paste_data_images: true,
   min_height: 420,
   max_height: 420
 };
