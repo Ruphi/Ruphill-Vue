@@ -13,14 +13,16 @@
           ></v-text-field>
         </v-flex>
         <v-flex xs4 sm2 style="background-color: white">
-          <v-btn-toggle style="margin-top: 15px">
-            <v-btn @click.stop.prevent="postBlog">
-              <v-icon color="primary">send</v-icon>
-            </v-btn>
-            <v-btn @click.stop.prevent="newBlog">
-              <v-icon color="primary">add</v-icon>
-            </v-btn>
-          </v-btn-toggle>
+          <IconBtnGroup class="ruphi-icon-btn-group" style="margin-top: 10px;">
+            <template>
+              <v-btn @click.stop.prevent="postBlog">
+                <v-icon color="primary">send</v-icon>
+              </v-btn>
+              <v-btn @click.stop.prevent="newBlog">
+                <v-icon color="primary">add</v-icon>
+              </v-btn>
+            </template>
+          </IconBtnGroup>
         </v-flex>
       </v-layout>
       <v-layout row>
@@ -80,6 +82,7 @@ import {required} from 'vuelidate/lib/validators'
 import TopSnackbar from "../../components/TopSnackbar";
 
 import aip from '../../common/aip';
+import IconBtnGroup from "../../components/BtnGroup/IconBtnGroup";
 
 /*
 * 编辑器配置项
@@ -107,7 +110,7 @@ const timyMceOptions =  {
 
 export default {
   name: 'Editor',
-  components: {TopSnackbar, TinyEditor},
+  components: {IconBtnGroup, TopSnackbar, TinyEditor},
 
   validations: {
     blogTitle: {required}
@@ -308,6 +311,9 @@ export default {
   }
   .tox .tox-dialog--width-lg{
     height: 520px!important;
+  }
+  .tox-tinymce{
+    height: 75vh!important;
   }
   .ruphi-text-field{
     padding-bottom: 6px!important;

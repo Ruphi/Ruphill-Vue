@@ -10,25 +10,25 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat>文章</v-btn>
-        <v-btn flat @click="toPictures">图库</v-btn>
+        <v-btn flat to="/pictures">图库</v-btn>
         <v-btn flat>音乐</v-btn>
-        <v-btn flat active-class="default-class" @click="toAdmin">管理</v-btn>
+        <v-btn flat to="/admin">管理</v-btn>
         <v-btn flat>关于我</v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-md-and-up">
-        <v-btn icon>
-          <v-icon @click="goHome">home</v-icon>
+        <v-btn icon to="/index">
+          <v-icon>home</v-icon>
         </v-btn>
         <v-btn icon>
           <v-icon>library_books</v-icon>
         </v-btn>
-        <v-btn icon @click="toPictures">
+        <v-btn icon to="/pictures">
           <v-icon>photo_library</v-icon>
         </v-btn>
         <v-btn icon>
           <v-icon>library_music</v-icon>
         </v-btn>
-        <v-btn icon @click="toAdmin">
+        <v-btn icon to="/admin/dashboard/todo">
           <v-icon>settings_applications</v-icon>
         </v-btn>
         <v-btn icon>
@@ -42,17 +42,8 @@
     export default {
       name: "Header",
       methods:{
-        goHome(){
-          this.$router.push('/index');
-        },
         setDrawerAsTrue: function () {
           this.$store.commit('setDrawerAsTrue');
-        },
-        toAdmin: function () {
-          this.$router.push('/admin/dashboard/todo');
-        },
-        toPictures: function () {
-          this.$router.push('/pictures')
         }
       }
     }
