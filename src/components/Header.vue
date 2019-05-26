@@ -12,7 +12,7 @@
         <v-btn flat>文章</v-btn>
         <v-btn flat to="/pictures">图库</v-btn>
         <v-btn flat>音乐</v-btn>
-        <v-btn flat to="/admin">管理</v-btn>
+        <v-btn flat to="/admin/dashboard/editor">管理</v-btn>
         <v-btn flat>关于我</v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-md-and-up">
@@ -28,7 +28,7 @@
         <v-btn icon>
           <v-icon>library_music</v-icon>
         </v-btn>
-        <v-btn icon to="/admin/dashboard/todo">
+        <v-btn icon to="/admin/dashboard/editor">
           <v-icon>settings_applications</v-icon>
         </v-btn>
         <v-btn icon>

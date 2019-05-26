@@ -8,7 +8,7 @@
         </v-card>
         <v-card class="ruphi-login-wrap">
           <v-img src="static/imgs/login/login_bg_a.png"></v-img>
-          <v-form ref="form">
+          <v-form ref="form" class="ruphi-form">
             <v-text-field
               label="昵称"
               required
@@ -99,14 +99,17 @@
   .ruphi-login-background{
     margin: 20px 0 0 0;
     border-radius: 0;
-    background: none;
+    background-color: transparent!important;;
   }
   .ruphi-login-background-img{
-    height: 25vh; border-radius: 0
+    height: 15vh; border-radius: 0
   }
   .ruphi-login-wrap{
     margin: 0 auto;
     padding: 10px 20px
+  }
+  .ruphi-form .v-input{
+    margin: 25px 0!important;
   }
   @media screen and (min-width:600px){
     .ruphi-login-wrap{

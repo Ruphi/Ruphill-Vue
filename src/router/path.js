@@ -28,6 +28,10 @@ export default {
         {
           path: 'projects/ife',
           component: resolve => require(['@/components/Ife/Ife'], resolve),
+        },
+        {
+          path: 'toolbox/todo',
+          component: resolve => require(['@/pages/Index/ToDo'], resolve),
         }
       ]
     },
@@ -44,10 +48,6 @@ export default {
         {
           path: '/',
           component: resolve => require(['@/components/Admin/AdminContent'], resolve)
-        },
-        {
-          path: 'dashboard/todo',
-          component: resolve => require(['@/pages/Admin/ToDo'], resolve),
         },
         {
           path: 'dashboard/imgUpload',

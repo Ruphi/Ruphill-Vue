@@ -44,10 +44,9 @@
         title: '管理面板',
         component: 'admin/dashboard',
         items: [
-          { title: 'To Do', to: '/admin/dashboard/todo', component: 'todo'},
-          { title: '图片上传', to: '/admin/dashboard/imgUpload', component: 'imgUpload'},
           { title: '写文章', to: '/admin/dashboard/editor', component: 'editor'},
-          { title: '文章管理', to: '/admin/dashboard/blog-admin', component: 'blog-admin'}
+          { title: '文章管理', to: '/admin/dashboard/blog-admin', component: 'blog-admin'},
+          { title: '图片上传', to: '/admin/dashboard/imgUpload', component: 'imgUpload'}
         ]
       }
     ],
@@ -58,6 +57,14 @@
         component: 'index/projects',
         items: [
           {title: '百度IFE', to: '/index/projects/ife', component: 'ife'},
+        ]
+      },
+      {
+        action: 'all_inbox',
+        title: '工具箱',
+        component: 'index/toolbox',
+        items: [
+          { title: 'To Do', to: '/index/toolbox/todo', component: 'todo'},
         ]
       }
     ]
