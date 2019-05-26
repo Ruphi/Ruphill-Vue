@@ -80,7 +80,7 @@
             }).then(res=>{
               that.showMsg(res.data.message);
               if (res.data.code === 0) {
-                that.$router.push('/admin/dashboard/todo');
+                that.$router.push('/admin/dashboard/editor');
               }
             }).catch(err=>{
               that.showMsg('验证失败！');
