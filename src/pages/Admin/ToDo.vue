@@ -1,6 +1,6 @@
 <template>
     <v-container style="height: 100%; max-height: 100%">
-      <div class="ruphi-todo-list-wrap">
+      <div class="ruphi-todo-list-wrap elevation-2">
         <v-list
           v-for="(item, index) in tasks"
           :key="index"

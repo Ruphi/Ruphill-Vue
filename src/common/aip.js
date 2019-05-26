@@ -1,13 +1,12 @@
-import rpserver from '../axios/rpserverr';
-import axios from '../axios/axios';
+import rpserver from '../axios/rpserver';
 
 const aip = {
   getToken: function (success, error) {
-    rpserver.get('/aip/token').then(success).catch(error);
+    rpserver.get('/api/aip/token').then(success).catch(error);
   },
   getTags: function (options, success, error) {
     rpserver.post(
-      '/aip/tags',
+      '/api/aip/tags',
       {
         title: options.title,
         content: options.content,

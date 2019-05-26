@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 
 import axios from './axios/axios'
-import rpserver from './axios/rpserverr'
+import rpserver from './axios/rpserver'
 
 import moment from 'moment'
 

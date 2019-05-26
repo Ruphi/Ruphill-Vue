@@ -1,12 +1,15 @@
 import axios from 'axios';
+import utils from '../common/utils';
 
 const rpserver = axios.create({
-
+  withCredentials: true
 });
 
 // 请求拦截器
 rpserver.interceptors.request.use(function (config) {
-  config.url = 'http://127.0.0.1:3000' + config.url;
+  utils.isDev() ? config.url = 'https://127.0.0.1:3000' + config.url
+    : config.url = 'https://47.112.96.94:3000' + config.url;
+
   return config;
 }, function (error) {
   return Promise.reject(error);

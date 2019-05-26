@@ -83,6 +83,7 @@ import TopSnackbar from "../../components/TopSnackbar";
 
 import aip from '../../common/aip';
 import IconBtnGroup from "../../components/BtnGroup/IconBtnGroup";
+import utils from '../../common/utils';
 
 /*
 * 编辑器配置项
@@ -102,7 +103,7 @@ const timyMceOptions =  {
   imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
   tabfocus_elements: ':prev,:next',
   emoticons_database_url: '/static/tinymce/emoticons/js/emojis.js',
-  images_upload_url: 'http://127.0.0.1:3000/qiniu/uploadImg',
+  images_upload_url: utils.isDev() ? 'https://127.0.0.1:3000/api/qiniu/uploadImg' : 'https://47.112.96.94:3000/api/qiniu/uploadImg',
   paste_data_images: true,
   min_height: 420,
   max_height: 420
@@ -207,7 +208,7 @@ export default {
     * */
     saveBlog: function (){
       const that = this;
-      this.$rpserver.post('/blog/save', {
+      this.$rpserver.post('/api/blog/save', {
         title: that.blogTitle,
         content: that.blogContent,
         tag: that.blogTag,
@@ -230,7 +231,7 @@ export default {
     * */
     updateBlog: function(){
       const that = this;
-      this.$rpserver.post('/blog/update', {
+      this.$rpserver.post('/api/blog/update', {
         title: that.blogTitle,
         content: that.blogContent,
         tag: that.blogTag,
@@ -250,7 +251,7 @@ export default {
       if (!blogId || blogId === '') {
         this.showMsg('缺少获取数据的相应参数！');
       }else {
-        this.$rpserver.get('/blog/'+blogId).then(function (response) {
+        this.$rpserver.get('/api/blog/'+blogId).then(function (response) {
           if (response.data.code === -1) {
             that.showMsg(response.data.message);
           }else {

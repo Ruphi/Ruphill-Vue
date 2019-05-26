@@ -57,6 +57,9 @@
     bottom: 36px;
     left: 2px;
   }
+  .ruphi-spread-index-sidebar-btn .v-icon{
+    line-height: 40px;
+  }
 
   @media screen and ( min-width: 960px){
     .ruphi-index-content {

@@ -83,4 +83,7 @@
     margin-top: -16px;
     margin-left: 275px;
   }
+  .ruphi-collect-index-sidebar-btn .v-icon{
+    line-height: 40px;
+  }
 </style>

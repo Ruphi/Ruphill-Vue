@@ -45,7 +45,6 @@
       },
       methods: {
         toIndex(){
-          console.log(this);
           this.$router.push('/index');
         }
       }

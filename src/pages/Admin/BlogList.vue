@@ -113,7 +113,7 @@
         * */
         getBlogList: function (){
           const that = this;
-          this.$rpserver.get('/blog/list').then(function (res) {
+          this.$rpserver.get('/api/blog/list').then(function (res) {
             that.loading = false;
             if (res.data.code === 0) {
               that.blogs = [];
@@ -160,7 +160,7 @@
           const that = this;
           const blogItem = this.blogItem;
           this.dialog = true;
-          this.$rpserver.delete('/blog/delete/'+blogItem._id).then(function (res) {
+          this.$rpserver.delete('/api/blog/delete/'+blogItem._id).then(function (res) {
             that.dialog = false;
             that.showMsg(res.data.message);
             if (res.data.code === 0) {
