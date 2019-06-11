@@ -8,7 +8,7 @@ const rpserver = axios.create({
 // 请求拦截器
 rpserver.interceptors.request.use(function (config) {
   utils.isDev() ? config.url = 'https://127.0.0.1:3000' + config.url
-    : config.url = 'https://47.112.96.94:3000' + config.url;
+    : config.url = 'https://ruphi.online:3000' + config.url;
 
   return config;
 }, function (error) {

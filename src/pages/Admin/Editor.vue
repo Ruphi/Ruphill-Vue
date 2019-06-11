@@ -103,7 +103,7 @@ const timyMceOptions =  {
   imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
   tabfocus_elements: ':prev,:next',
   emoticons_database_url: '/static/tinymce/emoticons/js/emojis.js',
-  images_upload_url: utils.isDev() ? 'https://127.0.0.1:3000/api/qiniu/uploadImg' : 'https://47.112.96.94:3000/api/qiniu/uploadImg',
+  images_upload_url: utils.isDev() ? 'https://127.0.0.1:3000/api/qiniu/uploadImg' : 'https://ruphi.online:3000/api/qiniu/uploadImg',
   paste_data_images: true,
   min_height: 420,
   max_height: 420
@@ -214,7 +214,6 @@ export default {
         tag: that.blogTag,
         date: Date.now()
       }).then(function (response) {
-        that.showMsg(response.data.message);
         const res = response.data;
         if (res.code === 0) {
           that.$router.replace('/admin/dashboard/editor?blogId='+res.data._id);
@@ -222,6 +221,7 @@ export default {
           that.blogContent = res.data.content;
           that.blogId = res.data._id;
         }
+        that.showMsg(response.data.message);
       }).catch(function (err) {
         that.showMsg('博客保存接口调用失败！');
       })
@@ -292,7 +292,7 @@ export default {
     * 博客标题的错误提示
     * */
     setErrMsg: function () {
-      const errors = []
+      const errors = [];
       if (this.blogTitle === '' && this.$v.blogTitle.$dirty) {
         errors.push('请输入文章标题！')
       }
