@@ -9,7 +9,7 @@
       <v-toolbar-title class="hidden-sm-and-down"><router-link to="/index" class="ruphi-router-link">一颗橡皮</router-link></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat>文章</v-btn>
+        <v-btn flat to="/blogs/blog-list">文章</v-btn>
         <v-btn flat to="/pictures">图库</v-btn>
         <v-btn flat>音乐</v-btn>
         <v-btn flat to="/admin/dashboard/editor">管理</v-btn>
@@ -19,7 +19,7 @@
         <v-btn icon to="/index">
           <v-icon>home</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon to="/blogs/blog-list">
           <v-icon>library_books</v-icon>
         </v-btn>
         <v-btn icon to="/pictures">

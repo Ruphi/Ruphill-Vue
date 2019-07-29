@@ -88,7 +88,7 @@ import utils from '../../common/utils';
 /*
 * 编辑器配置项
 * */
-const timyMceOptions =  {
+const timyMceOptions = {
   language: 'zh_CN',
   language_url: '/static/tinymce/langs/zh_CN.js',
   skin_url: '/static/tinymce/skins/ui/oxide',
@@ -107,7 +107,7 @@ const timyMceOptions =  {
   paste_data_images: true,
   min_height: 420,
   max_height: 420
-};
+}
 
 export default {
   name: 'Editor',

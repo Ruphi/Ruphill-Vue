@@ -67,6 +67,22 @@ export default {
       path: '/pictures',
       name: 'Pictures',
       component: resolve => require(['@/pages/Pictures'], resolve)
+    }, {
+      path: '/blogs',
+      name: 'Blogs',
+      component: resolve => require(['@/pages/Blog/Blog'], resolve),
+      children: [
+        {
+          path: 'blog-list',
+          name: 'BlogList',
+          component: resolve => require(['@/components/Blogs/BlogList'], resolve)
+        },
+        {
+          path: 'blog/:id',
+          name: 'BlogDetail',
+          component: resolve => require(['@/components/Blogs/BlogContent'], resolve)
+        }
+      ]
     }
   ]
 }
